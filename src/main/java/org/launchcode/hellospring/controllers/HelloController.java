@@ -43,4 +43,22 @@ public class HelloController {
     public String hellowWithPathParam(@PathVariable String name) {
         return "Hello, " + name + "!";
     }
+
+    // 10.2.6 Check Your Understanding
+    @GetMapping("venus")
+    @ResponseBody
+    public String venusSurface(@RequestParam boolean terrestrial) {
+        if (terrestrial == true) {
+            return "Venus is rocky.";
+        } else {
+            return "Venus is gaseous.";
+        }
+    }
+
+    // 10.2.6 Check Your Understanding
+    @GetMapping("venus/{orbiter}")
+    @ResponseBody
+    public String venusOrbiter(@PathVariable String orbiter) {
+        return orbiter + " currently orbits Venus.";
+    }
 }
