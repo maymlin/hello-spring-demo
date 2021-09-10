@@ -29,11 +29,18 @@ public class HelloController {
     }
 
     // https://www.youtube.com/watch?v=cXwlynCtZSM
-    // Handles request of the form /hello?name=May
+    // Handles request of the form /hello?name={name}
     @GetMapping("hello")
     @ResponseBody
     public String helloWithQueryParam(@RequestParam String name) {
         return "Hello, " + name + "!";
     }
 
+    // https://www.youtube.com/watch?v=lRNO0eAcSs4
+    // Responds to get requests at /hello/{name}
+    @GetMapping("hello/{name}")
+    @ResponseBody
+    public String hellowWithPathParam(@PathVariable String name) {
+        return "Hello, " + name + "!";
+    }
 }
