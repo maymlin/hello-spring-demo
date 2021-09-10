@@ -28,6 +28,7 @@ public class HelloController {
         return "Hello and good bye, Spring!";
     }
 
+    /**
     // https://www.youtube.com/watch?v=cXwlynCtZSM
     // Handles request of the form /hello?name={name}
     @GetMapping("hello")
@@ -35,6 +36,7 @@ public class HelloController {
     public String helloWithQueryParam(@RequestParam String name) {
         return "Hello, " + name + "!";
     }
+    */
 
     // https://www.youtube.com/watch?v=lRNO0eAcSs4
     // Responds to get requests at /hello/{name}
@@ -60,5 +62,27 @@ public class HelloController {
     @ResponseBody
     public String venusOrbiter(@PathVariable String orbiter) {
         return orbiter + " currently orbits Venus.";
+    }
+
+    // https://www.youtube.com/watch?v=LQxzrKPnUGY
+    @GetMapping("form")
+    @ResponseBody
+    public String helloForm() {
+        String html =
+                "<html>" +
+                    "<body>" +
+                        "<form method='post' action='/hello'>" +
+                            "<input type='text' name='name' />" +
+                            "<input type='submit' value='Greet Me!' />" +
+                        "</form>" +
+                    "</body>" +
+                "</html>";
+        return html;
+    }
+
+    @RequestMapping(value="hello", method={ RequestMethod.POST, RequestMethod.GET })
+    @ResponseBody
+    public String hello(@RequestParam String name) {
+        return "Hello, " + name + "!";
     }
 }
