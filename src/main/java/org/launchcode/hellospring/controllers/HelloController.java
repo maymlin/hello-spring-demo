@@ -153,6 +153,15 @@ public class HelloController {
                 break;
         }
 
-        return greetingString + name;
+        String html =
+                "<html>" +
+                    "<body>" +
+                        "<p style='background-color:SlateBlue; color:yellow; font-size:5em; font-weight:bold;" +
+                        "font-style:italic'>" +
+                        greetingString + name +
+                        "</p>" +
+                    "</body>" +
+                "</html>";
+        return html;
     }
 }
