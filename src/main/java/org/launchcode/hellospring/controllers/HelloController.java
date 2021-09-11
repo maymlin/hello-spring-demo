@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 // https://www.youtube.com/watch?v=DvEvhB20e2s
 @Controller // tells Spring Boot that this class represents controllers
 @RequestMapping("hello")
-@ResponseBody
+//@ResponseBody
 public class HelloController {
 
     /**
@@ -20,6 +20,7 @@ public class HelloController {
 
     // lives at /hello/goodbye
     @GetMapping("goodbye")  // handles request at path /goodbye
+    @ResponseBody
     public String goodbye() {
         return "Goodbye, Spring!";
     }
@@ -27,6 +28,7 @@ public class HelloController {
     // handles both GET and POST requests
     // lives at /hello/hellogoodbye
     @RequestMapping(value="hellogoodbye", method = {RequestMethod.POST, RequestMethod.GET})
+    @ResponseBody
     public String helloGoodbye() {
         return "Hello and good bye, Spring!";
     }
@@ -44,6 +46,7 @@ public class HelloController {
     // https://www.youtube.com/watch?v=lRNO0eAcSs4
     // Responds to get requests at /hello/{name}
     @GetMapping("{name}")
+    @ResponseBody
     public String hellowWithPathParam(@PathVariable String name) {
         return "Hello, " + name + "!";
     }
@@ -51,6 +54,7 @@ public class HelloController {
     // 10.2.6 Check Your Understanding
     // lives at hello/venus
     @GetMapping("venus")
+    @ResponseBody
     public String venusSurface(@RequestParam boolean terrestrial) {
         if (terrestrial == true) {
             return "Venus is rocky.";
@@ -62,12 +66,15 @@ public class HelloController {
     // 10.2.6 Check Your Understanding
     // lives at hello/venus
     @GetMapping("venus/{orbiter}")
+    @ResponseBody
     public String venusOrbiter(@PathVariable String orbiter) {
         return orbiter + " currently orbits Venus.";
     }
 
+    /**
     // https://www.youtube.com/watch?v=LQxzrKPnUGY
     // lives at hello/form
+    // replaced in 11.2 Creating a Template
     @GetMapping("form")
     public String helloForm() {
         String html =
@@ -81,14 +88,17 @@ public class HelloController {
                 "</html>";
         return html;
     }
+    */
 
     @RequestMapping(method={ RequestMethod.POST, RequestMethod.GET })
+    @ResponseBody
     public String hello(@RequestParam String name) {
         return "Hello, " + name + "!";
     }
 
     // 10.4.3 Check Your Understanding
     @RequestMapping(method={ RequestMethod.POST, RequestMethod.GET }, value="friend")
+    @ResponseBody
     public String helloFriendForm() {
         String html =
                 "<html>" +
@@ -106,12 +116,14 @@ public class HelloController {
 
     // 10.4.3 Check Your Understanding
     @RequestMapping(value="helloFriend", method={ RequestMethod.POST, RequestMethod.GET })
+    @ResponseBody
     public String helloFriend(@RequestParam String name, @RequestParam String friend) {
         return "Hello, " + name + " and " + friend + "!";
     }
 
     // 10.5 Exercise
     @GetMapping("exerciseform")
+    @ResponseBody
     public String greetingForm() {
         String html =
                 "<html>" +
@@ -136,6 +148,7 @@ public class HelloController {
 
     // 10.5 Exercise
     @PostMapping("exercise")
+    @ResponseBody
     public String greeting(@RequestParam String name, @RequestParam String greetings) {
         String greetingString = "";
         switch (greetings) {
@@ -163,5 +176,11 @@ public class HelloController {
                     "</body>" +
                 "</html>";
         return html;
+    }
+
+    // lives at /hello/form
+    @GetMapping("form")
+    public String helloForm() {
+        return "form";
     }
 }
