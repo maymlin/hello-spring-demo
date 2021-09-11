@@ -109,4 +109,50 @@ public class HelloController {
     public String helloFriend(@RequestParam String name, @RequestParam String friend) {
         return "Hello, " + name + " and " + friend + "!";
     }
+
+    // 10.5 Exercise
+    @GetMapping("exerciseform")
+    public String greetingForm() {
+        String html =
+                "<html>" +
+                    "<body>" +
+                        "<form action='exercise' method='post'>" +
+                        "<input type='text' name='name'>" +
+                        "<select name='greetings' id='greetings-select'>" +
+                            "<option value=''>--Please choose a language--</option>" +
+                            "<option value='farsi'>Farsi</option>" +
+                            "<option value='german'>German</option>" +
+                            "<option value='hindi'>Hindi</option>" +
+                            "<option value='italian'>Italian</option>" +
+                            "<option value='swissGerman'>Swiss German</option>" +
+                        "</select>" +
+                        "<input type='submit' value='Greet me!'/>" +
+                        "</form>" +
+                    "</body>" +
+                "</html>";
+
+        return html;
+    }
+
+    // 10.5 Exercise
+    @PostMapping("exercise")
+    public String greeting(@RequestParam String name, @RequestParam String greetings) {
+        String greetingString = "";
+        switch (greetings) {
+            case "farsi": greetingString = "Salaam ";
+                break;
+            case "german": greetingString = "Guten tag ";
+                break;
+            case "hindi": greetingString = "Namaste ";
+                break;
+            case "italian": greetingString = "Ciao ";
+                break;
+            case "swissGerman": greetingString = "Grüezi ";
+                break;
+            default:
+                break;
+        }
+
+        return greetingString + name;
+    }
 }
