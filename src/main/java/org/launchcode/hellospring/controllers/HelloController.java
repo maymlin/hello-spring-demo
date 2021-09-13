@@ -1,7 +1,11 @@
 package org.launchcode.hellospring.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 // https://www.youtube.com/watch?v=DvEvhB20e2s
 @Controller // tells Spring Boot that this class represents controllers
@@ -90,11 +94,14 @@ public class HelloController {
     }
     */
 
+    /**
+    // Replaced by 11.5. Conditionals in a Template dynamic / Thymeleaf way below
     @RequestMapping(method={ RequestMethod.POST, RequestMethod.GET })
     @ResponseBody
     public String hello(@RequestParam String name) {
         return "Hello, " + name + "!";
     }
+    */
 
     // 10.4.3 Check Your Understanding
     @RequestMapping(method={ RequestMethod.POST, RequestMethod.GET }, value="friend")
@@ -183,4 +190,27 @@ public class HelloController {
     public String helloForm() {
         return "form";
     }
+
+    // 11.5. Conditionals in a Template
+    // https://www.youtube.com/watch?v=bT5Zt9xZYSU
+    // lives at /hello
+    @RequestMapping(method={ RequestMethod.POST, RequestMethod.GET })
+    public String hello(@RequestParam String name, Model model) {
+        String greeting = "Hello, " + name + "!";
+        model.addAttribute("greeting", greeting);
+        return "hello";
+    }
+
+    // 11.5. Conditionals in a Template
+    // https://www.youtube.com/watch?v=bT5Zt9xZYSU
+    // lives at /hello/hello-names
+    @GetMapping("hello-names")
+    public String helloNames(Model model) {
+        List<String> names = new ArrayList<>(
+                List.of("C++", "Go", "Haskell", "Java", "Python", "Swift")
+        );
+        model.addAttribute("names", names);
+        return "hello-list";    // Thymeleaf template
+    }
+
 }
